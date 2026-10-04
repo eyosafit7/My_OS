@@ -358,12 +358,18 @@ img{
 
 #setting_content{
     width: 100%;
-    height: 420px; 
+    height: 350px; 
     padding: 5px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
+    overflow: scroll;
 }
+
+#setting_content::-webkit-scrollbar{
+    display: none;
+}
+
 #setting_content button{
     margin: 5px 20px 5px 20px;
     border-radius: 5px;
@@ -381,6 +387,18 @@ img{
     translate: 2px;
 }
 
+#show_storage{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding-left: 0px 10px;
+
+}
+
+#show_storage p{
+    display: inline-block;
+    margin-left: 20px;
+}
 
 
 

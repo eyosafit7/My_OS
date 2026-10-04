@@ -19,6 +19,7 @@ I don't know what "Liqlaqo" means, but I used it when I created my PUBG account 
 * **Liqlaqo calculator:** This is the app that I built without any help. I simply built it myself from scratch (brick by brick). I did both the functionality and the styling without guidance (as none was available).
 * **Weather application:** First, I created the app in HTML and styled it, but the functionality was tough. However, I learned a lot from it.
 * **📝 Notebook application:** You can type anything on it, but I haven't included saving functionality yet. Next time, I will use the Next.js framework for this project (for easier backend connection), but in vanilla JavaScript, it is difficult.
+* **Settings:** you can change the wallpaper and also clear data.
 * **Date and time:** I built this myself without guidance using JavaScript's built-in `new Date()` function.
 
 ## Built With

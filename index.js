@@ -22,10 +22,10 @@ var setting = document.getElementById("setting")
 
 var bigger_index = 1
 
+// calculator code
 function addValue(val){
   monitorvalue.value += val
 }
-
 function remove(){
   monitorvalue.value = ""
 }
@@ -36,6 +36,7 @@ function solve(){
   monitorvalue.value = eval(monitorvalue.value)
 }
 
+// date and time code
 function count(){
     const now = new Date()
 
@@ -45,15 +46,17 @@ function count(){
     new_hour = ampm == "PM" ? String(now.getHours() - 12).padStart(2,"0") : String(now.getHours()).padStart(2,"0")
     new_minute = String(now.getMinutes()).padStart(2,"0")
     new_second = String(now.getSeconds()).padStart(2,"0")
-
+    
     time.textContent = `${new_hour}:${new_minute}:${new_second} ${ampm}`
     date.textContent = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`
 }
+count()
+setInterval(count,1000)
 
+// close and open functionality
 function close_window(element){
     element.style.display = "none"
 }
-
 function open_window(element){
   if (element.style.display != "none"){
     close_window(element)
@@ -69,56 +72,47 @@ function open_window(element){
 welcomescreenopen.addEventListener("click",function(){
     open_window(welcomescreen)
 })
-
 welcomescreenclose.addEventListener("click",function(){
     close_window(welcomescreen)
 })
+
 calcopen.addEventListener("click",function(){
     open_window(calc)
 })
-
 calclose.addEventListener("click",function(){
     close_window(calc)
 })
+
 noteopen.addEventListener("click",function(){
     open_window(notebook)
 })
-
 noteclose.addEventListener("click",function(){
     close_window(notebook)
 })
+
 weatheropen.addEventListener("click",function(){
     open_window(weather)
 })
-
 weatherclose.addEventListener("click",function(){
     close_window(weather)
 })
+
 settingopen.addEventListener("click",function(){
     open_window(setting)
 })
-
 settingclose.addEventListener("click",function(){
     close_window(setting)
 })
 
-
-count()
-
-setInterval(count,1000)
-
+// dragging functionality
 dragElement(document.getElementById("welcome"));
 dragElement(document.getElementById("notebook"))
 dragElement(document.getElementById("calc"));
 dragElement(document.getElementById("weather"));
 dragElement(document.getElementById("setting"));
 
-
 function dragElement(element) {
-  var initialX = 0;
-  var initialY = 0;
-  var currentX = 0;
-  var currentY = 0;
+  var initialX = initialY = currentX = currentY = 0;
 
   if (document.getElementById(element.id + "header")) {
     document.getElementById(element.id + "header").onmousedown = startDragging;
@@ -152,6 +146,7 @@ function dragElement(element) {
   }
 }
 
+// weather functionality
 const Arbaminch = document.getElementById("Arba Minch")
 const AddisAbaba = document.getElementById("Addis Ababa")
 const London = document.getElementById("London")
@@ -189,9 +184,7 @@ function handleEmoji(num){
 function handleWeatherClick(elem,val){
   
   elem.addEventListener("click", async () => {
-    const city = typeof val !== "string"
-            ? val.value.trim()
-            : val.trim();
+    const city = typeof val !== "string" ? val.value.trim() : val.trim();
     result.innerHTML = "<p>Loading weather...</p>";
     elem.disabled = true
     try {
@@ -227,7 +220,6 @@ function handleWeatherClick(elem,val){
         elem.disabled = false;
     }
 });
-
 }
 
 handleWeatherClick(Arbaminch,Arbaminch.id)
@@ -238,49 +230,92 @@ handleWeatherClick(London,London.id)
 handleWeatherClick(Tokyo,Tokyo.id)
 handleWeatherClick(update,searched)
 
-const save_notes = document.getElementById("save_notes")
-const load_notes = document.getElementById("load_notes")
+// note book functionality
 const notes_content = document.querySelector("#notes_content")
+const file_name = document.querySelector("#file_name")
 
-save_notes.addEventListener("click", () => {
-  key = window.prompt("set key to remember? ")
-  if (Boolean(key) == true){
-    localStorage.setItem(key,notes_content.value)
-    window.alert("saved succesfully")
+function handleSaveNotes() {
+  key = window.prompt("ensert file name? ")
+  if (Boolean(key) == false){
+    window.alert("type valid file name!")
   }
   else{
-    window.alert("type something to remember first")
+    if ( !(key in localStorage)){
+      password = window.prompt("Create a password?")
+      localStorage.setItem(key,JSON.stringify([password,notes_content.value]))
+      window.alert("Created succesfully!")
+    }
+    else if(key in localStorage){
+      password = window.prompt("We already have that file if you wanna update, type a password?")
+      value = JSON.parse(localStorage.getItem(key))
+      if (value[0] == password){
+        localStorage.setItem(key,JSON.stringify([password,notes_content.value]))
+        window.alert("Updated succesfully!")
+      }
+      else{
+        window.alert("Your not able to update, check the password!")
+      }
+    }
   }
   
-} )
-load_notes.addEventListener("click", ()=>{
-  requested_key = window.prompt("ensert key? ")
-  if (requested_key in localStorage){
-    notes_content.value = localStorage.getItem(requested_key)
-    window.alert("loaded succesfully")
+}
+function handleLoadNotes(){
+  key = window.prompt("ensert file name? ")
+  if (key in localStorage){
+    password = window.prompt("ensert a password?")
+    value = JSON.parse(localStorage.getItem(key))
+    if (value[0] == password){
+      notes_content.value = value[1]
+      file_name.textContent = `${key}.txt`
+      window.alert("loaded succesfully!")
+    }
+    else{
+      window.alert("Wrong password check your password again!")
+    }
   }
   else{
-    window.alert("no key found")
-  }
-})
-
-function handleDataClear(){
-  key = window.prompt('ensert key? ')
-  if (Boolean(key) == true && key in localStorage){
-    localStorage.removeItem(key)
-    window.alert('Cleared succesfully')
-  }
-  else if(Boolean(key) == true){
-    window.alert("Not Found!")
-  }
-  else{
-    window.alert("ensert a key")
+    window.alert("no file found!")
   }
 }
 
+// wallpaper code
 links = ['images/samurai.jpg','images/pikachu.jpg','images/spiderman.jpg']
 function handleWallpaper(index){
   document.body.style.backgroundImage = `url(${links[index]})`
   document.body.style.backgroundSize = 'cover'
 }
 
+// setting code
+const show_storage = document.getElementById("show_storage")
+
+function handleDataClear(){
+  key = window.prompt('ensert file name? ')
+  if (Boolean(key) == true && key in localStorage){
+    password = window.prompt("ensert a password?")
+    value = JSON.parse(localStorage.getItem(key))
+    if(value[0] == password){
+      localStorage.removeItem(key)
+      window.alert('Cleared succesfully!')
+      handleRefresh()
+    }
+    else{
+      window.alert("Wrong password check your password again!")
+    }
+  }
+  else if(Boolean(key) == true){
+    window.alert("Not Found!")
+  }
+  else{
+    window.alert("ensert a file name first!")
+  }
+}
+
+function handleRefresh(){
+
+  let show = Object.keys(localStorage).map((key)=>{
+    return `<p>${key}</p>`
+  })
+  show_storage.innerHTML = show.join("")
+  console.log(storage)
+}
+handleRefresh()

@@ -28,13 +28,18 @@
                 <span id="dragger"></span>
                 <span id="settingclose" class="circle" style="background-color: #ff5351;" ></span>
             </div>
+            <h1 style="margin-top: 20px; margin-bottom: 0;">Settings</h1>
             <div id="setting_content">
-                <h1 style="margin-top: 0;">Settings</h1>
                 <h3>Wallpaper</h3>
                 <button onclick="handleWallpaper(0)">samurai</button>
                 <button onclick="handleWallpaper(1)">pikachu</button>
                 <button onclick="handleWallpaper(2)">spider-man</button>
                 <h3>Data and Privacy</h3>
+                <button onclick="handleRefresh()">Refresh files</button>
+                <div id="show_storage">
+                    
+                </div>
+                
                 <button onclick="handleDataClear()">Clear Notebook Data</button>
             </div>
         </div>
@@ -73,17 +78,17 @@
         </div>
 
         <!-- notebook app  -->
-        <div id="notebook" class="app" >
+        <div id="notebook" class="app">
             <div id="notebookheader" class="appheader">
                 <span id="dragger"></span>
                 <span id="notebookclose" class="circle" style="background-color: #ff5351;" ></span>
             </div>
-            <button id="save_notes" class="note_button">Save</button>
-            <button id="load_notes" class="note_button">Load</button>
+            <button onclick="handleSaveNotes()" class="note_button">Save</button>
+            <button onclick="handleLoadNotes()" class="note_button">Load</button>
 
             <h1 style="margin-bottom: 0;">Notebook</h1>
 
-            <p style="font-family: cursive; font-size: 10px;  margin-top: 0; margin-left: 20px;">Welcome to <strong>Liqlaqo Notes</strong></p>
+            <p style="font-family: cursive; font-size: 10px;  margin-top: 0; margin-left: 20px;">Welcome to <strong id="file_name">Liqlaqo Notes</strong></p>
             <div style="margin-left: 40px;" class="notebookcontent">
                 <div  id="notescontent">
                     <textarea id="notes_content" class="notebook" placeholder = " This is my notebook..."></textarea>
