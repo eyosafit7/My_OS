@@ -1,6 +1,14 @@
+var bigger_index = 1
 const time = document.getElementById("timer")
 const date = document.getElementById("date")
+var monitorvalue = document.getElementById("monitorvalue")
+
 var welcomescreen = document.querySelector("#welcome")
+var calc = document.getElementById("calc")
+var weather = document.getElementById("weather")
+var notebook = document.getElementById("notebook")
+var setting = document.getElementById("setting")
+var music = document.getElementById("music")
 
 var welcomescreenclose = document.querySelector("#welcomeclose")
 var welcomescreenopen = document.querySelector("#welcomeopen")
@@ -12,48 +20,19 @@ var weatheropen = document.querySelector("#weather_app")
 var weatherclose = document.querySelector("#weatherclose")
 var settingopen = document.querySelector("#setting_app")
 var settingclose = document.querySelector("#settingclose")
+var musicopen = document.querySelector("#music_app")
+var musiclose = document.querySelector("#musiclose")
 
+// close and open functionality 
+const all_in_one = [
+  [welcomescreen,welcomescreenopen,welcomescreenclose],
+  [calc,calcopen,calclose],
+  [weather,weatheropen,weatherclose],
+  [notebook,noteopen,noteclose],
+  [setting,settingopen,settingclose],
+  [music,musicopen,musiclose]
+] 
 
-var calc = document.getElementById("calc")
-var weather = document.getElementById("weather")
-var monitorvalue = document.getElementById("monitorvalue")
-var notebook = document.getElementById("notebook")
-var setting = document.getElementById("setting")
-
-var bigger_index = 1
-
-// calculator code
-function addValue(val){
-  monitorvalue.value += val
-}
-function remove(){
-  monitorvalue.value = ""
-}
-function deletelast(){
-  monitorvalue.value = monitorvalue.value.slice(0,-1)
-}
-function solve(){
-  monitorvalue.value = eval(monitorvalue.value)
-}
-
-// date and time code
-function count(){
-    const now = new Date()
-
-    ampm = now.getHours()
-    ampm = ampm > 12 ? "PM" : "AM"
-
-    new_hour = ampm == "PM" ? String(now.getHours() - 12).padStart(2,"0") : String(now.getHours()).padStart(2,"0")
-    new_minute = String(now.getMinutes()).padStart(2,"0")
-    new_second = String(now.getSeconds()).padStart(2,"0")
-    
-    time.textContent = `${new_hour}:${new_minute}:${new_second} ${ampm}`
-    date.textContent = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`
-}
-count()
-setInterval(count,1000)
-
-// close and open functionality
 function close_window(element){
     element.style.display = "none"
 }
@@ -65,51 +44,8 @@ function open_window(element){
     element.style.zIndex = `${bigger_index}`
     bigger_index += 1
     element.style.display = "inline-block"
-  }
-  
+  } 
 }
-
-welcomescreenopen.addEventListener("click",function(){
-    open_window(welcomescreen)
-})
-welcomescreenclose.addEventListener("click",function(){
-    close_window(welcomescreen)
-})
-
-calcopen.addEventListener("click",function(){
-    open_window(calc)
-})
-calclose.addEventListener("click",function(){
-    close_window(calc)
-})
-
-noteopen.addEventListener("click",function(){
-    open_window(notebook)
-})
-noteclose.addEventListener("click",function(){
-    close_window(notebook)
-})
-
-weatheropen.addEventListener("click",function(){
-    open_window(weather)
-})
-weatherclose.addEventListener("click",function(){
-    close_window(weather)
-})
-
-settingopen.addEventListener("click",function(){
-    open_window(setting)
-})
-settingclose.addEventListener("click",function(){
-    close_window(setting)
-})
-
-// dragging functionality
-dragElement(document.getElementById("welcome"));
-dragElement(document.getElementById("notebook"))
-dragElement(document.getElementById("calc"));
-dragElement(document.getElementById("weather"));
-dragElement(document.getElementById("setting"));
 
 function dragElement(element) {
   var initialX = initialY = currentX = currentY = 0;
@@ -145,6 +81,50 @@ function dragElement(element) {
     document.onmousemove = null;
   }
 }
+
+function handleAllWindows(lst){
+  for (let arr of lst){
+    arr[1].addEventListener("click",function(){
+        open_window(arr[0])
+    })
+    arr[2].addEventListener("click",function(){
+        close_window(arr[0])
+    })
+
+    dragElement(arr[0]);
+  }
+}
+
+handleAllWindows(all_in_one)
+
+// calculator code
+function addValue(val){
+  monitorvalue.value += val
+}
+function remove(){
+  monitorvalue.value = ""
+}
+function deletelast(){
+  monitorvalue.value = monitorvalue.value.slice(0,-1)
+}
+function solve(){
+  monitorvalue.value = eval(monitorvalue.value)
+}
+
+// date and time code
+function count(){
+    const now = new Date()
+    ampm = now.getHours()
+    ampm = ampm > 12 ? "PM" : "AM"
+    new_hour = ampm == "PM" ? String(now.getHours() - 12).padStart(2,"0") : String(now.getHours()).padStart(2,"0")
+    new_minute = String(now.getMinutes()).padStart(2,"0")
+    new_second = String(now.getSeconds()).padStart(2,"0")
+    
+    time.textContent = `${new_hour}:${new_minute}:${new_second} ${ampm}`
+    date.textContent = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`
+}
+count()
+setInterval(count,1000)
 
 // weather functionality
 const Arbaminch = document.getElementById("Arba Minch")
@@ -182,7 +162,7 @@ function handleEmoji(num){
 }
 
 function handleWeatherClick(elem,val){
-  
+
   elem.addEventListener("click", async () => {
     const city = typeof val !== "string" ? val.value.trim() : val.trim();
     result.innerHTML = "<p>Loading weather...</p>";
@@ -257,7 +237,7 @@ function handleSaveNotes() {
       }
     }
   }
-  
+
 }
 function handleLoadNotes(){
   key = window.prompt("ensert file name? ")
@@ -311,11 +291,72 @@ function handleDataClear(){
 }
 
 function handleRefresh(){
-
+  
   let show = Object.keys(localStorage).map((key)=>{
-    return `<p>${key}</p>`
+    if (key !== 'music_xp'){
+      return `<p>${key}.txt</p>`
+    }
   })
   show_storage.innerHTML = show.join("")
-  console.log(storage)
+
 }
 handleRefresh()
+
+// music functionality
+let playing = false
+const top_tracks = document.querySelector('#top_tracks')
+const play_state = document.getElementById('play_state')
+const music_image = document.getElementById('musicimage')
+const view = document.getElementById('view')
+const audio = document.getElementById('audio')
+
+let music_xp = [['Melkam_wetat','musics/melkam_wetat.mp3','#85005767','images/yamesih.jpg'],
+                ['Memhru','musics/memhru.mp3','#00605967','images/memhru.jpg'],
+                ['Ya_mesih','musics/ya_mesih.mp3','#00188567','images/marsil_image.jpg'],
+                ['Etaye','musics/etaye.mp3','#82450052','images/music_background.jpg'],
+                ['G_and_B','musics/gandb.mp3','#54008567','images/music_background.jpg'],
+                ['Guzo','musics/guzo.mp3','#85000067','images/music_background.jpg'],
+                ['Yenefs','musics/yenefs.mp3','#1b008567','images/music_background.jpg'],
+                ['Yiwedegnal_biye','musics/yiwedegn.mp3','#3a850067','images/music_background.jpg'],
+              ]
+
+function handleMusicRefresh(){
+  let show_music = []
+  for (let x in music_xp){
+    show_music.push(`<button style="background-color: ${music_xp[x][2]}; color: white" onClick="handleMusicClick(${x})">${music_xp[x][0]}</button>`)
+  }
+  top_tracks.innerHTML = show_music.join("")
+}
+handleMusicRefresh()
+
+function handleMusicClick(index){
+  music.style.backgroundColor = `${music_xp[index][2]}`
+  audio.src = `${music_xp[index][1]}`
+  view.textContent = `${music_xp[index][0]}`
+  music_image.src = `${music_xp[index][3]}`
+}
+
+function changePlay(){
+  if (playing){
+    audio.pause()
+    play_state.textContent = '▶'
+  }
+  else{
+    audio.play()
+    play_state.textContent = '⏸'
+  }
+  playing = !(playing)
+  music_image.classList.toggle('rotate')
+}
+
+
+
+
+
+
+
+
+
+
+
+

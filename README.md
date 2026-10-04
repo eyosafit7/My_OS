@@ -18,7 +18,8 @@ I don't know what "Liqlaqo" means, but I used it when I created my PUBG account 
 * **Making apps draggable:** I looked at the guidance and it was hard for me, so I just copied the draggable code from the guidance, but it didn't work. Finally, I understood the bug and adapted it specifically to my HTML components (classes and IDs).
 * **Liqlaqo calculator:** This is the app that I built without any help. I simply built it myself from scratch (brick by brick). I did both the functionality and the styling without guidance (as none was available).
 * **Weather application:** First, I created the app in HTML and styled it, but the functionality was tough. However, I learned a lot from it.
-* **📝 Notebook application:** You can type anything on it, but I haven't included saving functionality yet. Next time, I will use the Next.js framework for this project (for easier backend connection), but in vanilla JavaScript, it is difficult.
+* **Notebook application:** You can type anything in it, save, load, and update your notes. However, I haven't implemented a database yet. Currently, it saves your data in `localStorage`, and I don't know how to save it in a database. I tried watching YouTube tutorials, but implementing a database with vanilla JavaScript was difficult for me.
+* **Music application:** You can enjoy the default music, and I tried my best to allow users to add their own music. However, I found out that websites don't allow JavaScript to directly access users' files due to security reasons. I have another option, but it may be inconvenient for users because they would have to paste the URL of the music or allow temporary access to their files. Do you think I should implement this feature?
 * **Settings:** you can change the wallpaper and also clear data.
 * **Date and time:** I built this myself without guidance using JavaScript's built-in `new Date()` function.
 

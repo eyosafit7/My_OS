@@ -400,6 +400,116 @@ img{
     margin-left: 20px;
 }
 
+#musicleft{
+    display: flex; 
+    flex-direction: column; 
+    background-color: transparent;
+    padding: 10px;
+    border: 2px dashed gainsboro;
+    border-radius: 3px;
+    margin-right: 5px;
+    flex-grow: 2;
+    align-items: center;
+    width: 250px;
+}
 
+#musicleft #top_tracks::-webkit-scrollbar{
+    display: none;
+}
+
+#musicleft #top_tracks{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    overflow: scroll; 
+    text-align: center;
+}
+
+#musicleft #top_tracks button{
+    font-family: cursive;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    backdrop-filter: blur(30px);
+    width: 90%;
+    padding: 5px;
+    margin: 4px;
+    border-radius: 5px;
+    text-wrap-mode: nowrap;
+    text-align: start;
+    overflow: hidden;
+}
+
+#musicleft #top_tracks button:hover{
+    transform: translateY(1px);
+}
+
+#musicright{
+    flex-grow: 6; 
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+}
+
+#musicimage{
+    width: 290px; 
+    border-radius: 50%; 
+    border: 8px solid black; 
+    height: 290px;
+}
+
+#audio{
+    margin-top: 10px;
+    display: none;
+}
+#refresh_music{
+    width: fit-content;
+    font-weight: bold;
+    color: #525252;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#refresh_music:hover{
+    text-decoration: underline;
+}
+#play_state{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: black;
+    font-size: 30px;
+    padding: 0;
+}
+
+#new_music{
+    margin: 0px 20px 10px 20px;
+    margin-bottom: 12px;
+    padding: 5px;
+    border: 0.5px solid gainsboro;
+    border-radius: 5px;
+    background: transparent;
+    backdrop-filter: blur(30px);
+    font-size: 30px;
+    flex-grow: 1;
+}
+
+.rotate{
+    animation: rotate 60s infinite linear;
+}
+
+@keyframes rotate {
+    from{
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotateZ(360deg);
+    }
+}
 
 
