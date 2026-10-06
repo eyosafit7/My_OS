@@ -10,7 +10,7 @@ I built the notebook app from scratch.You can type anything in it, save, load, a
 
 I also included music app because my cousin asks me to do it. i tried to make it more interactive with background if you click one file it will automatically changes the background, the picture, and the name.
 
-In settings, you can choose the wallpaper from three distinict picture that are available by default. those are pikachu, samurai and spiderman. And also let's you see what files saved by refreshing to get updated information and also clear notebook data if you know the corresponding password to that file.
+In settings, you can choose the wallpaper from three distinict picture that are available by default. those are pikachu, samurai and spiderman. And also let's you see what files saved by refreshing to get updated information and also clear notebook data if you know the corresponding password to that file. you can also change the font family, font color, font size and app color with ease.
 
 I built clock and date that makes the project more real operating system.
 
