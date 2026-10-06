@@ -179,6 +179,42 @@ function handleWallpaper(index){
 
 // setting code
 const show_storage = document.getElementById("show_storage")
+const elements = document.querySelectorAll("*")
+const font_family = ["system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+  "monospace",
+  "fantasy",
+  "cursive"
+]
+const app_colors = ["#3636363f","#5d3f3f45","#3f485d3b","#3f5d4237","#61316338","#4131633e","#7047ca3e","#475dca42","#97979739"]
+const font_colors = ["#363636","#5d3f3f","#3f485d","#3f5d42","#613163","#413163","#7047ca","#475dca","#979797"]
+const scale = [0.9,1,1.1]
+const paragraphs = document.querySelectorAll("p")
+const apps = document.querySelectorAll(".app")
+
+function handleFontFamily(index){
+  elements.forEach((element) => {
+    element.style.fontFamily = font_family[index];
+  })
+}
+
+function handleFontColor(index){
+  elements.forEach((element) => {
+    element.style.color = font_colors[index];
+  })
+}
+function handleScale(index){
+  paragraphs.forEach((p) => {
+    p.style.transform = `scale(${scale[index]})`;
+  })
+}
+
+function handleAppColor(index){
+  apps.forEach((app) => {
+    app.style.backgroundColor = `${app_colors[index]}`;
+  })
+}
+
+handleScale(0)
 
 function handleDataClear(){
   key = window.prompt('ensert file name? ')

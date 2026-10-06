@@ -478,3 +478,7 @@ img{
 }
 
 
+#app_color button{
+    width: 40px;
+    height: 20px;
+}
